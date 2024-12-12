@@ -16,6 +16,7 @@ module.exports = defineConfig({
     }
     */
     proxy: 'http://localhost:8095',
+    
     // 접근 가능 IP (default : localhost, 아무나 접근 가능 -> 0.0.0.0)
     // host : '0.0.0.0', 
     // HTTPS 사용여부 (default : false)
