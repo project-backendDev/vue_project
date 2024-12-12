@@ -2,17 +2,11 @@
   	<img alt="Vue logo" src="./assets/logo.png">
   	<HelloWorld msg="Welcome to Your Vue.js App"/>
   	<div id="app">
-		<nav>
-			<router-link to="/">홈</router-link>
-			<router-link to="/registView">회원가입</router-link>
-		</nav>
-		<router-view></router-view>
 	</div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import registView from './components/registView.vue'
 
 export default {
   name: 'App',
