@@ -10,7 +10,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "USER_INFO")
 public class UserInfo {
@@ -90,6 +96,7 @@ public class UserInfo {
 	
 	private String chkArr;
 
+	/*
 	public int getUserSeq() {
 		return userSeq;
 	}
@@ -241,6 +248,7 @@ public class UserInfo {
 	public void setChkArr(String chkArr) {
 		this.chkArr = chkArr;
 	}
+	
 
 	@Override
 	public String toString() {
@@ -250,4 +258,5 @@ public class UserInfo {
 				+ ", lastLogin=" + lastLogin + ", userType=" + userType + ", loginType=" + loginType + ", addItem01="
 				+ addItem01 + ", addItem02=" + addItem02 + ", addItem03=" + addItem03 + ", chkArr=" + chkArr + "]";
 	}
+	*/
 }
