@@ -115,7 +115,9 @@
                     userType : '',
                     loginType : ''
                 },
-                passwordError : ''
+                passwordError : '',
+                passwordNotMatch : '',
+
             };
         },
         computed : {
