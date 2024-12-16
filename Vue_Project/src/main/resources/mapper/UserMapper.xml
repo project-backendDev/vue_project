@@ -37,6 +37,51 @@
 			now(), now(), now(), #{userType}, #{loginType}, #{addItem01}, #{addItem02}, #{addItem03}
 		)
 	</insert>
+
+	<!-- 회원조회 (SELECT) -->
+	<select id="getAllUserList"  parameterType="com.project.user.UserInfo" resultMap="UserInfo">
+		SELECT	  USER_ID
+				, USER_PW
+				, NAME
+				, TEL
+				, BIRTHDAY
+				, GENDER
+				, POSTCODE
+				, ADDR1
+				, ADDR2
+				, REG_DATE
+				, EDIT_DATE
+				, LAST_LOGIN
+				, USER_TYPE
+				, LOGIN_TYPE
+				, ADD_ITEM01
+				, ADD_ITEM02
+				, ADD_ITEM03
+		FROM	USER_INFO
+	</select>
+	
+	<!-- 단일 회원 조회 (SELECT) -->
+	<select id="getUserListByUserId" parameterType="com.project.user.UserInfo" resultMap="UserInfo">
+		SELECT	  USER_ID
+				, USER_PW
+				, NAME
+				, TEL
+				, BIRTHDAY
+				, GENDER
+				, POSTCODE
+				, ADDR1
+				, ADDR2
+				, REG_DATE
+				, EDIT_DATE
+				, LAST_LOGIN
+				, USER_TYPE
+				, LOGIN_TYPE
+				, ADD_ITEM01
+				, ADD_ITEM02
+				, ADD_ITEM03
+		FROM	USER_INFO
+		WHERE	USER_ID = #{userId}	
+	</select>
 	
 	<!-- 사이트에서 회원가입 시 중복회원가입 방지를 위해 아이디 중복검사 수행 -->
 	<select id="duplicationUserId" parameterType="com.project.user.UserInfo" resultType="int">

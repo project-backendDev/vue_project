@@ -249,6 +249,7 @@ public class UserInfo {
 		this.chkArr = chkArr;
 	}
 	
+	 */
 
 	@Override
 	public String toString() {
@@ -258,5 +259,4 @@ public class UserInfo {
 				+ ", lastLogin=" + lastLogin + ", userType=" + userType + ", loginType=" + loginType + ", addItem01="
 				+ addItem01 + ", addItem02=" + addItem02 + ", addItem03=" + addItem03 + ", chkArr=" + chkArr + "]";
 	}
-	*/
 }

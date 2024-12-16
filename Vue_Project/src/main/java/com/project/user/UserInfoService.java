@@ -1,6 +1,7 @@
 package com.project.user;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,22 @@ public class UserInfoService implements UserInfoMapper {
 	@Override
 	public int insertUser(UserInfo userInfo) {
 		return userInfoService.insertUser(userInfo);
+	}
+	
+	/*
+	 * 회원 전체조회 
+	 */
+	@Override
+	public List<UserInfo> getAllUserList() {
+		return userInfoService.getAllUserList();
+	}
+	
+	/*
+	 * 단일 회원조회
+	 */
+	@Override
+	public UserInfo getUserListByUserId(String userId) {
+		return userInfoService.getUserListByUserId(userId);
 	}
 
 	/*
@@ -42,6 +59,12 @@ public class UserInfoService implements UserInfoMapper {
 	public void lastLoginUpdate(Date lastLogin, String userId) {
 		userInfoService.lastLoginUpdate(lastLogin, userId);
 	}
+
+	
+
+	
+
+	
 
 
 

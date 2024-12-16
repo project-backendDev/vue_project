@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import About from '@/views/AboutView.vue'
 import RegistView from '@/views/user/RegistView.vue'
+import UserList from '@/views/user/UserList.vue'
+import UserDetail from '@/views/user/UserDetail.vue'
 
 
 /*
@@ -33,10 +35,24 @@ const routes = [
 	// component : () => import('@/views/AboutView.vue')
   },
   {
+    // 회원가입 페이지
     path : '/registView',
     name : "registView",
     component: RegistView
 	// component : () => import('@/views/user/RegistView.vue')
+  },
+  {
+    // 회원 전체리스트
+    path : '/userList',
+    name : "userList",
+    component: UserList
+	// component : () => import('@/views/user/UserList.vue')
+  },{
+    // 단일 회원 조회
+    path : '/user/:userId',
+    name : "userDetail",
+    component: UserDetail
+	// component : () => import('@/views/user/UserDetail.vue')
   }
 ]
 

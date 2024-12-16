@@ -1,6 +1,7 @@
 package com.project.user;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,6 +13,16 @@ public interface UserInfoMapper {
 	 */
 	public int insertUser(UserInfo userInfo);
 	
+	/*
+	 * 회원 전체조회
+	 */
+	public List<UserInfo> getAllUserList();
+	
+	/*
+	 * 단일 회원조회
+	 */
+	public UserInfo getUserListByUserId(String userId);
+
 	/*
 	 * 사이트에서 회원가입 시 아이디 중복검사
 	 */
