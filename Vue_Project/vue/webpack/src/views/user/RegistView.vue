@@ -90,7 +90,7 @@
         </div>
         
         <div>
-            <button type="submit" :disabled="isFormValid">가입</button>
+            <button type="submit">가입</button>
         </div>
     </form>
     <button @click="cancel()">취소</button>
@@ -147,27 +147,30 @@
                 }
             },
             joinForm() {
-                try {
-                    const response = axios.post('http://localhost:8095/api/user/regist', {
-                        userId : this.userId,
-                        userPw : this.userPw,
-                        name : this.name,
-                        tel : this.tel,
-                        birthday : this.birthday,
-                        gender : this.gender,
-                        postcode : this.postcode,
-                        addr1 : this.addr1,
-                        addr2 : this.addr2,
-                        userType : 'normal',
-                        loginType : 'site'
-                    });
-                    alert("회원가입 성공!!\n", response);
-                    console.log("회원가입 성공!!", response);
-                    this.$router.push('/');
-                } catch (error) {
-                    alert("회원가입 실패..");
-                    console.log(error);
-                }
+                let requestData = {
+                    userId    : this.userId,
+                    userPw    : this.userPw,
+                    name      : this.name,
+                    tel       : this.tel,
+                    birthday  : this.birthday,
+                    gender    : this.gender,
+                    postcode  : this.postcode,
+                    addr1     : this.addr1,
+                    addr2     : this.addr2,
+                    userType  : 'normal',
+                    loginType : 'site'
+                };
+
+                axios.post('http://localhost:8095/api/user/regist', requestData)
+                    .then(response => {
+                        alert(response.data);   //  회원가입이 완료되었습니다.
+                        this.$router.push('/');
+                    })
+                    .catch(error => {
+                        alert("회원가입에 실패하였습니다.\n 동일 오류가 발생할 경우 관리자에게 문의하세요.");
+                        console.log(error);
+                        return false;
+                    })
             },
             cancel() {
                 const con = "회원가입을 취소하시겠습니까?";
