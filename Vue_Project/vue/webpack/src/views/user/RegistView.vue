@@ -6,7 +6,7 @@
             <label>
                 아이디
                 <br />
-                <input type="text" v-model="userId" autofocus />
+                <input type="text" v-model="userId" autofocus placeholder="아이디를 입력해주세요"/>
             </label>
         </div>
         
@@ -15,9 +15,11 @@
                 비밀번호
                 <br />
                 <!-- @input >> 사용자가 입력할 때 마다 검증 메소드를 호출 -->
-                <input type="password" v-model="userPw" @input="validUserPw"  placeholder="PASSWORD" />
+                <input type="password" v-model="userPw" @input="validUserPw"  placeholder="비밀번호를 입력해주세요" />
                 <div>
-                    <span v-if="passwordError">{{ passwordError }}</span>
+                    <span v-if="passwordError">
+                        {{ passwordError }}
+                    </span>
                 </div>
             </label>
         </div>
@@ -26,9 +28,11 @@
             <label>
                 비밀번호 확인
                 <br />
-                <input type="password" id="userPwRe" @input="userPwMatch" placeholder="PASSWORD" />
+                <input type="password" id="userPwRe" @input="userPwMatch" placeholder="비밀번호를 다시 한번 입력해주세요" />
                 <div>
-                    <span v-if="passwordNotMatch"> {{ passwordNotMatch }}</span>
+                    <span v-if="passwordNotMatch">
+                        {{ passwordNotMatch }}
+                    </span>
                 </div>
             </label>
         </div>
@@ -43,9 +47,14 @@
 
         <div>
             <label>
-                전화번호
+                휴대폰
                 <br />
-                <input type="text" v-model="tel" />
+                <input type="text" v-model="tel" @input="validUserTel" placeholder="010-1234-5678"/>
+                <div>
+                    <span v-if="telError">
+                        {{ telError }}
+                    </span>
+                </div>
             </label>
         </div>
 
@@ -58,35 +67,35 @@
         </div>
 
         <div>
-            <label>
+            <span>
                 성별
-                <br />
-                <input type="text" v-model="gender" />
+            </span>
+            <label for="male">
+                <input type="radio" id="male" name="gender" v-model="gender" value="male" />남성
+            </label>
+            <label for="female">
+                <input type="radio" id="female" name="gender" v-model="gender" value="female" />여성
             </label>
         </div>
 
         <div>
-            <label>
-                우편번호
-                <br />
-                <input type="text" v-model="postcode" />
-            </label>
+            <label for="postcode">우편번호</label>
+            <br />
+            <input type="text" name="postcode" v-model="postcode" />
+            <button type="button" @click="openDaumPop()">주소찾기</button>
+            <!-- <input type="text" name="postcode" v-model="postcode"/> -->
         </div>
 
         <div>
-            <label>
-                주소
-                <br />
-                <input type="text" v-model="addr1" />
-            </label>
+            <label for="addr1">주소</label>
+            <br />
+            <input type="text" name="addr1" v-model="addr1" />
         </div>
 
         <div>
-            <label>
-                상세주소
-                <br />
-                <input type="text" v-model="addr2" />
-            </label>
+            <label for="addr2">상세주소</label>
+            <br />
+            <input type="text" name="addr2" v-model="addr2" />
         </div>
         
         <div>
@@ -115,35 +124,76 @@
                     userType : '',
                     loginType : ''
                 },
+                // 비밀번호 정규식 체크
                 passwordError : '',
+                // 비밀번호 체크
                 passwordNotMatch : '',
-
+                // 전화번호 정규식 체크
+                telError : '',
+                // 다음 우편주소 return 데이터
+                postcode : '',
+                addr1 : '',
             };
         },
         computed : {
             isFormValid() {
-                return this.validUserPw || this.userPwMatch;
+                return this.validUserPw || this.userPwMatch || this.validUserTel;
             },
         },
         methods : {
+            // 비밀번호 입력 유효성 검사
             validUserPw() {
-                const regEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                const passWordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-                if (!regEx.test(this.userPw)) {
+                if (!this.userPw || !passWordRegEx.test(this.userPw)) {
                     this.passwordError = '비밀번호는 최소 8자 이상, 대문자, 소문자, 숫자, 특수 문자를 포함해야 합니다.';
                 } else {
                     this.passwordError = '';
                 }
             },
+            // 입력한 비밀번호와 재입력하는 비밀번호가 동일하는지 확인
             userPwMatch() {
                 const passRe = document.getElementById("userPwRe").value;
                 const pass = this.userPw;
-                console.log("[1]    " + passRe);
 
                 if (passRe != pass) {
                     this.passwordNotMatch = '입력하신 비밀번호와 일치하지 않습니다.';
                 } else {
                     this.passwordNotMatch = '';
+                }
+            },
+            // 전화번호 입력 유효성 검사
+            validUserTel() {
+                const telRegEx = /^01[0-9]-[0-9]{4}-[0-9]{4}$/;
+                
+                if (!this.tel || !telRegEx.test(this.tel)) {
+                    this.telError = "유효한 핸드폰 번호를 입력해주세요.";
+                } else {
+                    this.telError = '';
+                }
+            },
+            // 주소찾기 버튼 클릭 시 다음 우편번호 API 호출
+            openDaumPop() {
+                new window.daum.Postcode({
+                    oncomplete: (data) => {
+                        this.postcode = data.zonecode;
+                        this.addr1 = data.address;
+                    }
+                }).open()
+            },
+            // 가입 버튼 클릭 시 유효성 검사
+            validateForm() {
+                const passWordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                const telRegEx = /^01[0-9]-[0-9]{4}-[0-9]{4}$/;
+
+                if (!this.userPw || !passWordRegEx.test(this.userPw)) {
+                    alert("유효한 비밀번호를 입력해주세요.");
+                    return false;
+                }
+
+                if (!this.tel || !telRegEx.test(this.tel)) {
+                    alert("유효한 핸드폰 번호를 입력해주세요.");
+                    return false;
                 }
             },
             joinForm() {
