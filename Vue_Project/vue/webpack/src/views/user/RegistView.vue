@@ -6,7 +6,7 @@
             <label>
                 아이디
                 <br />
-                <input type="text" v-model="userId" autofocus placeholder="아이디를 입력해주세요"/>
+                <input type="text" id="userId" v-model="userId" autofocus placeholder="아이디를 입력해주세요"/>
             </label>
         </div>
         
@@ -15,7 +15,7 @@
                 비밀번호
                 <br />
                 <!-- @input >> 사용자가 입력할 때 마다 검증 메소드를 호출 -->
-                <input type="password" v-model="userPw" @input="validUserPw"  placeholder="비밀번호를 입력해주세요" />
+                <input type="password" id="userPw" v-model="userPw" @input="validUserPw"  placeholder="비밀번호를 입력해주세요" />
                 <div>
                     <span v-if="passwordError">
                         {{ passwordError }}
@@ -41,7 +41,7 @@
             <label>
                 이름
                 <br />
-                <input type="text" v-model="name" />
+                <input type="text" id="name" v-model="name" />
             </label>
         </div>
 
@@ -49,7 +49,7 @@
             <label>
                 휴대폰
                 <br />
-                <input type="text" v-model="tel" @input="validUserTel" placeholder="010-1234-5678"/>
+                <input type="text" id="tel" v-model="tel" @input="validUserTel" placeholder="010-1234-5678"/>
                 <div>
                     <span v-if="telError">
                         {{ telError }}
@@ -62,7 +62,7 @@
             <label>
                 생일
                 <br />
-                <input type="text" v-model="birthday" />
+                <input type="date" id="birthday" v-model="birthday" />
             </label>
         </div>
 
@@ -181,21 +181,24 @@
                     }
                 }).open()
             },
-            // 가입 버튼 클릭 시 유효성 검사
-            validateForm() {
+            // 유효성 검사
+            validate() {
                 const passWordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
                 const telRegEx = /^01[0-9]-[0-9]{4}-[0-9]{4}$/;
 
                 if (!this.userPw || !passWordRegEx.test(this.userPw)) {
                     alert("유효한 비밀번호를 입력해주세요.");
+                    document.getElementById("userPw").focus();
                     return false;
                 }
 
                 if (!this.tel || !telRegEx.test(this.tel)) {
                     alert("유효한 핸드폰 번호를 입력해주세요.");
+                    document.getElementById("tel").focus();
                     return false;
                 }
             },
+            // 가입 버튼 클릭 시 동작
             joinForm() {
                 let requestData = {
                     userId    : this.userId,
@@ -211,16 +214,22 @@
                     loginType : 'site'
                 };
 
-                axios.post('http://localhost:8095/api/user/regist', requestData)
-                    .then(response => {
-                        alert(response.data);   //  회원가입이 완료되었습니다.
-                        this.$router.push('/');
-                    })
-                    .catch(error => {
-                        alert("회원가입에 실패하였습니다.\n 동일 오류가 발생할 경우 관리자에게 문의하세요.");
-                        console.log(error);
-                        return false;
-                    })
+                // 유효성 검사를 통과하면 회원가입 진행
+                if (this.validate()) {
+                    console.log("validate True!!!");
+                    axios.post('http://localhost:8095/api/user/regist', requestData)
+                        .then(response => {
+                            alert(response.data);   //  회원가입이 완료되었습니다.
+                            this.$router.push('/');
+                        })
+                        .catch(error => {
+                            alert("회원가입에 실패하였습니다.\n 동일 오류가 발생할 경우 관리자에게 문의하세요.");
+                            console.log(error);
+                            return false;
+                        })
+                } else {
+                    console.log("validate False...");
+                }
             },
             joinCancel() {
                 const con = "회원가입을 취소하시겠습니까?";
