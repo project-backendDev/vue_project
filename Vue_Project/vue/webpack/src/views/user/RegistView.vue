@@ -102,7 +102,7 @@
             <button type="submit">가입</button>
         </div>
     </form>
-    <button @click="cancel()">취소</button>
+    <button @click="joinCancel()">취소</button>
 </template>
 
 <script>
@@ -222,7 +222,7 @@
                         return false;
                     })
             },
-            cancel() {
+            joinCancel() {
                 const con = "회원가입을 취소하시겠습니까?";
 
                 if (confirm(con)) {
