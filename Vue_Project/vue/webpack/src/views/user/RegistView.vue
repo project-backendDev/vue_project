@@ -215,21 +215,16 @@
                 };
 
                 // 유효성 검사를 통과하면 회원가입 진행
-                if (this.validate()) {
-                    console.log("validate True!!!");
-                    axios.post('http://localhost:8095/api/user/regist', requestData)
-                        .then(response => {
-                            alert(response.data);   //  회원가입이 완료되었습니다.
-                            this.$router.push('/');
-                        })
-                        .catch(error => {
-                            alert("회원가입에 실패하였습니다.\n 동일 오류가 발생할 경우 관리자에게 문의하세요.");
-                            console.log(error);
-                            return false;
-                        })
-                } else {
-                    console.log("validate False...");
-                }
+                axios.post('http://localhost:8095/api/user/regist', requestData)
+                    .then(response => {
+                        alert(response.data);   //  회원가입이 완료되었습니다.
+                        this.$router.push('/');
+                    })
+                    .catch(error => {
+                        alert("회원가입에 실패하였습니다.\n 동일 오류가 발생할 경우 관리자에게 문의하세요.");
+                        console.log(error);
+                        return false;
+                    })
             },
             joinCancel() {
                 const con = "회원가입을 취소하시겠습니까?";
