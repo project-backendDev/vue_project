@@ -9,19 +9,24 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserInfoMapper {
 	
 	/*
-	 * 회원가입
+	 * 회원가입 (INSERT)
 	 */
 	public int insertUser(UserInfo userInfo);
 	
 	/*
-	 * 회원 전체조회
+	 * 회원 전체조회 (SELECT)
 	 */
 	public List<UserInfo> getAllUserList();
 	
 	/*
-	 * 단일 회원조회
+	 * 단일 회원조회 (SELECT)
 	 */
 	public UserInfo getUserListByUserId(String userId);
+	
+	/*
+	 * 회원정보 수정 (UPDATE)
+	 */
+	public UserInfo updtUserByUserId(String userId);
 
 	/*
 	 * 사이트에서 회원가입 시 아이디 중복검사

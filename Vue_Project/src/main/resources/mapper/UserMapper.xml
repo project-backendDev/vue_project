@@ -83,6 +83,23 @@
 		WHERE	USER_ID = #{userId}	
 	</select>
 	
+	<!-- 회원정보 수정 (UPDATE) -->
+	<update id="updtUserByUserId" parameterType="com.project.user.UserInfo">
+		UPDATE	USER_INFO
+		SET		  NAME
+				, TEL
+				, BIRTHDAY
+				, GENDER
+				, POSTCODE
+				, ADDR1
+				, ADDR2
+				, EDIT_DATE
+				, ADD_ITEM01
+				, ADD_ITEM02
+				, ADD_ITEM03
+		WHERE	USER_ID = #{userId}
+	</update>
+	
 	<!-- 사이트에서 회원가입 시 중복회원가입 방지를 위해 아이디 중복검사 수행 -->
 	<select id="duplicationUserId" parameterType="com.project.user.UserInfo" resultType="int">
 		SELECT	count(USER_ID)

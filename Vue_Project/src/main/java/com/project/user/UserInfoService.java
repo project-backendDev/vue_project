@@ -13,7 +13,7 @@ public class UserInfoService implements UserInfoMapper {
 	private UserInfoMapper userInfoService;
 	
 	/*
-	 * 회원가입
+	 * 회원가입 (INSERT)
 	 */
 	@Override
 	public int insertUser(UserInfo userInfo) {
@@ -21,7 +21,7 @@ public class UserInfoService implements UserInfoMapper {
 	}
 	
 	/*
-	 * 회원 전체조회 
+	 * 회원 전체조회 (SELECT)
 	 */
 	@Override
 	public List<UserInfo> getAllUserList() {
@@ -29,11 +29,19 @@ public class UserInfoService implements UserInfoMapper {
 	}
 	
 	/*
-	 * 단일 회원조회
+	 * 단일 회원조회 (SELECT)
 	 */
 	@Override
 	public UserInfo getUserListByUserId(String userId) {
 		return userInfoService.getUserListByUserId(userId);
+	}
+	
+	/*
+	 * 회원정보 수정 (UPDATE)
+	 */
+	@Override
+	public UserInfo updtUserByUserId(String userId) {
+		return userInfoService.updtUserByUserId(userId);
 	}
 
 	/*
@@ -59,6 +67,7 @@ public class UserInfoService implements UserInfoMapper {
 	public void lastLoginUpdate(Date lastLogin, String userId) {
 		userInfoService.lastLoginUpdate(lastLogin, userId);
 	}
+
 
 	
 

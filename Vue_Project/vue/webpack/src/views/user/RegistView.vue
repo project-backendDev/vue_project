@@ -102,7 +102,7 @@
             <button type="submit">가입</button>
         </div>
     </form>
-    <button @click="joinCancel()">취소</button>
+    <button @click="cancel()">취소</button>
 </template>
 
 <script>
@@ -174,8 +174,10 @@
             },
             // 주소찾기 버튼 클릭 시 다음 우편번호 API 호출
             openDaumPop() {
+                console.log("여기?");
                 new window.daum.Postcode({
                     oncomplete: (data) => {
+                        console.log("여긴 왜 안와..?");
                         this.postcode = data.zonecode;
                         this.addr1 = data.address;
                     }
@@ -226,7 +228,8 @@
                         return false;
                     })
             },
-            joinCancel() {
+            // 취소 버튼 클릭 시
+            cancel() {
                 const con = "회원가입을 취소하시겠습니까?";
 
                 if (confirm(con)) {

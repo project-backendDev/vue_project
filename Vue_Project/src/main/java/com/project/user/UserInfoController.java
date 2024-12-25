@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,9 +55,16 @@ public class UserInfoController {
 		System.out.println(userId);
 		System.out.println("[S] getUserListByUserId");
 		
-		UserInfo user = userInfoService.getUserListByUserId(userId);
-		System.out.println(user.toString());
-		
 		return ResponseEntity.ok(userInfoService.getUserListByUserId(userId));
+	}
+	
+	/*
+	 * 회원정보 수정
+	 */
+	@PutMapping(value = "/user/update/{userId}")
+	public ResponseEntity<UserInfo> updtUserByUserId(@PathVariable String userId) {
+		System.out.println("[S] updtUserByUserId");
+		
+		return ResponseEntity.ok(userInfoService.updtUserByUserId(userId));
 	}
 }

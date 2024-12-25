@@ -4,6 +4,7 @@ import About from '@/views/AboutView.vue'
 import RegistView from '@/views/user/RegistView.vue'
 import UserList from '@/views/user/UserList.vue'
 import UserDetail from '@/views/user/UserDetail.vue'
+import UpdateView from '@/views/user/UpdateView.vue'
 
 
 /*
@@ -47,12 +48,20 @@ const routes = [
     name : "userList",
     component: UserList
 	// component : () => import('@/views/user/UserList.vue')
-  },{
+  },
+  {
     // 단일 회원 조회
     path : '/user/:userId',
     name : "userDetail",
     component: UserDetail
 	// component : () => import('@/views/user/UserDetail.vue')
+  },
+  {
+    // 회원수정 페이지
+    path : '/user/updateView/:userId',
+    name : "updateView",
+    component : UpdateView
+    // component : () => import('@/views/user/UpdateView.vue')
   }
 ]
 
